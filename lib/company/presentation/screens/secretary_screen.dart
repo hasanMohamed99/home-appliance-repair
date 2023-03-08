@@ -29,7 +29,7 @@ class SecretaryScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${secretaryParameter['position']}:',
+              '${secretaryParameter['position']}',
               style: Styles.textStyleBold24(mainColor, context),
             ),
             SizedBox(
