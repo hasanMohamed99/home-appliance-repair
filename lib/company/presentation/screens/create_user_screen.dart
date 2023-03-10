@@ -210,6 +210,7 @@ class _CreateUserBodyState extends State<_CreateUserBody> {
           username: '${userNameController.text}@mc.com',
           password: passwordController.text,
           position: radioValue.toString().toLowerCase(),
+          deviceToken: '',
           currentOrders: 0,
           finishedOrders: 0,
         ),

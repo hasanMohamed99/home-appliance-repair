@@ -1,4 +1,5 @@
 import 'package:company/company/presentation/controller/auth/auth_cubit.dart';
+import 'package:company/company/presentation/controller/user/user_cubit.dart';
 import 'package:company/company/presentation/screens/create_order_screen.dart';
 import 'package:company/company/presentation/screens/create_user_screen.dart';
 import 'package:company/company/presentation/screens/login_screen.dart';
@@ -37,6 +38,7 @@ abstract class AppRouter {
             if (authState is Authenticated && authState.position == 'manager') {
               getPosition(authState.uid).then((value) {
                 if (value == authState.position) {
+                  BlocProvider.of<UserCubit>(context).updateUserDeviceTokenUseCase(uId: authState.uid, field: 'deviceToken', value: authState.deviceToken);
                   GoRouter.of(context).go(AppRouter.kManagerScreen, extra: {
                     'uid': authState.uid,
                     'position': 'Manager',
@@ -51,6 +53,7 @@ abstract class AppRouter {
                 authState.position == 'secretary') {
               getPosition(authState.uid).then((value) {
                 if (value == authState.position) {
+                  BlocProvider.of<UserCubit>(context).updateUserDeviceTokenUseCase(uId: authState.uid, field: 'deviceToken', value: authState.deviceToken);
                   GoRouter.of(context).go(AppRouter.kSecretaryScreen, extra: {
                     'uid': authState.uid,
                     'position': 'Secretary',
@@ -65,6 +68,7 @@ abstract class AppRouter {
                 authState.position == 'representative') {
               getPosition(authState.uid).then((value) {
                 if (value == authState.position) {
+                  BlocProvider.of<UserCubit>(context).updateUserDeviceTokenUseCase(uId: authState.uid, field: 'deviceToken', value: authState.deviceToken);
                   GoRouter.of(context).go(AppRouter.kRepresentativeScreen,
                       extra: {
                         'uid': authState.uid,

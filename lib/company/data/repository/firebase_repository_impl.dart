@@ -90,4 +90,15 @@ class FirebaseRepositoryImpl extends FirebaseRepository {
   @override
   Future<String> getCurrentName({required String uid}) async =>
       remoteDataSource.getCurrentName(uid: uid);
+
+  @override
+  Future<String> getDeviceToken() async => remoteDataSource.getDeviceToken();
+
+  @override
+  Future<void> updateUserDeviceToken({required String uId, required String field, required String value,}) async =>
+      remoteDataSource.updateUserDeviceToken(
+        uId: uId,
+        field: field,
+        value: value,
+      );
 }

@@ -7,6 +7,7 @@ import 'package:company/company/domain/use_cases/get_user_by_uid_usecase.dart';
 import 'package:company/company/domain/use_cases/get_users_usecase.dart';
 import 'package:company/company/domain/use_cases/sign_in_usecase.dart';
 import 'package:company/company/domain/use_cases/sign_up_usecase.dart';
+import 'package:company/company/domain/use_cases/update_user_device_token_usecase.dart';
 import 'package:company/company/domain/use_cases/update_user_order_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
@@ -14,6 +15,7 @@ import 'dart:io';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
+  final UpdateUserDeviceTokenUseCase updateUserDeviceTokenUseCase;
   final GetUserByUIdUseCase getUserByUIdUseCase;
   final UpdateUserOrderUseCase updateUserOrderUseCase;
   final GetCurrentNameUseCase getCurrentNameUseCase;
@@ -24,6 +26,7 @@ class UserCubit extends Cubit<UserState> {
   final SignUpUseCase signUpUseCase;
   final GetCreateCurrentUserUseCase getCreateCurrentUserUseCase;
   UserCubit({
+    required this.updateUserDeviceTokenUseCase,
     required this.getUserByUIdUseCase,
     required this.updateUserOrderUseCase,
     required this.signInUseCase,

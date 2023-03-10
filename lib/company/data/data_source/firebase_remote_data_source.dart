@@ -9,6 +9,7 @@ abstract class FirebaseRemoteDataSource {
   Future<String> getCurrentUId();
   Future<String> getCurrentPosition(String uid);
   Future<String> getCurrentName({required String uid});
+  Future<String> getDeviceToken();
   Future<void> getCreateCurrentUser(UserEntity user);
   Future <Map<String, dynamic>> getUserById({required String uid});
   Future<void> addOrder(OrderEntity order);
@@ -22,6 +23,11 @@ abstract class FirebaseRemoteDataSource {
     required String uId,
     required String field,
     required int value,
+  });
+  Future<void> updateUserDeviceToken({
+    required String uId,
+    required String field,
+    required String value,
   });
   Future<void> deleteOrder(OrderEntity order);
   Future<void> deleteUser(UserEntity user);

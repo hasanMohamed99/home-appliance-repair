@@ -3,6 +3,7 @@ import 'package:company/company/domain/entities/user_entity.dart';
 import 'package:company/company/presentation/components/components.dart';
 import 'package:company/company/presentation/controller/order/order_cubit.dart';
 import 'package:company/company/presentation/controller/user/user_cubit.dart';
+import 'package:company/core/services/notification_service.dart';
 import 'package:company/core/utils/app_icons.dart';
 import 'package:company/core/utils/app_router.dart';
 import 'package:company/core/utils/app_strings.dart';
@@ -224,6 +225,11 @@ class _UsersListViewItemState extends State<_UsersListViewItem> {
                                       text: 'order sent successfully ',
                                       state: ToastStates.SUCCESS);
                                   widget.secretary!['currentOrders'] += 1;
+                                  sendPushMessage(
+                                    token: widget.user.deviceToken!,
+                                    body: 'You have New Order from ${widget.secretary!['name']}',
+                                    title: 'New Order',
+                                  );
                                   GoRouter.of(context)
                                       .go(AppRouter.kSecretaryScreen, extra: {
                                     'uid': widget.order['secretaryId'],

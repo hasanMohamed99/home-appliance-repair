@@ -5,6 +5,7 @@ import 'package:company/company/data/models/user_model.dart';
 import 'package:company/company/domain/entities/order_entity.dart';
 import 'package:company/company/domain/entities/user_entity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   final FirebaseAuth auth;
@@ -85,6 +86,7 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
         username: user.username,
         password: user.password,
         name: user.name,
+        deviceToken: user.deviceToken,
         finishedOrders: user.finishedOrders,
         currentOrders: user.currentOrders,
       ).toDocument();
@@ -140,6 +142,19 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   }
 
   @override
+  Future<void> updateUserDeviceToken({
+    required String uId,
+    required String field,
+    required String value,
+  }) async {
+    final orderCollectionRef = FirebaseFirestore.instance.collection('users');
+    orderCollectionRef.doc(uId).update({
+      field: value,
+    });
+    return;
+  }
+
+  @override
   Future<String> getCurrentPosition(String uid) async {
     var collection = FirebaseFirestore.instance.collection('users');
     var docSnapshot = await collection.doc(uid).get();
@@ -155,6 +170,15 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
     Map<String, dynamic> data = docSnapshot.data()!;
     var name = data['name'];
     return name;
+  }
+
+  @override
+  Future<String> getDeviceToken() async{
+    String token = '';
+    await FirebaseMessaging.instance.getToken().then((deviceToken) {
+      token = deviceToken!;
+    });
+    return token;
   }
 
   @override

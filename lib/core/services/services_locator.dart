@@ -10,6 +10,7 @@ import 'package:company/company/domain/use_cases/get_create_current_user_usecase
 import 'package:company/company/domain/use_cases/get_current_name_usecase.dart';
 import 'package:company/company/domain/use_cases/get_current_position_usecase.dart';
 import 'package:company/company/domain/use_cases/get_current_uid_usecase.dart';
+import 'package:company/company/domain/use_cases/get_device_token_usecase.dart';
 import 'package:company/company/domain/use_cases/get_orders_usecase.dart';
 import 'package:company/company/domain/use_cases/get_representative_usecase.dart';
 import 'package:company/company/domain/use_cases/get_user_by_uid_usecase.dart';
@@ -20,6 +21,7 @@ import 'package:company/company/domain/use_cases/sign_out_usecase.dart';
 import 'package:company/company/domain/use_cases/sign_up_usecase.dart';
 import 'package:company/company/domain/use_cases/update_order_status_usecase.dart';
 import 'package:company/company/domain/use_cases/update_order_usecase.dart';
+import 'package:company/company/domain/use_cases/update_user_device_token_usecase.dart';
 import 'package:company/company/domain/use_cases/update_user_order_usecase.dart';
 import 'package:company/company/presentation/controller/auth/auth_cubit.dart';
 import 'package:company/company/presentation/controller/order/order_cubit.dart';
@@ -37,6 +39,7 @@ Future<void> init() async {
         signOutUseCase: sl.call(),
         getCurrentPositionUseCase: sl.call(),
         getUserByUIdUseCase: sl.call(),
+        getDeviceTokenUseCase: sl.call(),
       ));
   sl.registerFactory<UserCubit>(() => UserCubit(
         signInUseCase: sl.call(),
@@ -48,6 +51,7 @@ Future<void> init() async {
         getCurrentNameUseCase: sl.call(),
         updateUserOrderUseCase: sl.call(),
         getUserByUIdUseCase: sl.call(),
+        updateUserDeviceTokenUseCase: sl.call(),
       ));
   sl.registerFactory<OrderCubit>(() => OrderCubit(
         updateOrderUseCase: sl.call(),
@@ -72,6 +76,8 @@ Future<void> init() async {
       () => GetOrdersUseCase(repository: sl.call()));
   sl.registerLazySingleton<GetUserByUIdUseCase>(
       () => GetUserByUIdUseCase(repository: sl.call()));
+  sl.registerLazySingleton<GetDeviceTokenUseCase>(
+      () => GetDeviceTokenUseCase(repository: sl.call()));
   sl.registerLazySingleton<IsSignInUseCase>(
       () => IsSignInUseCase(repository: sl.call()));
   sl.registerLazySingleton<SignInUseCase>(
@@ -82,6 +88,8 @@ Future<void> init() async {
       () => SignUpUseCase(repository: sl.call()));
   sl.registerLazySingleton<UpdateOrderStatusUseCase>(
       () => UpdateOrderStatusUseCase(repository: sl.call()));
+  sl.registerLazySingleton<UpdateUserDeviceTokenUseCase>(
+      () => UpdateUserDeviceTokenUseCase(repository: sl.call()));
   sl.registerLazySingleton<UpdateOrderUseCase>(
       () => UpdateOrderUseCase(repository: sl.call()));
   sl.registerLazySingleton<UpdateUserOrderUseCase>(

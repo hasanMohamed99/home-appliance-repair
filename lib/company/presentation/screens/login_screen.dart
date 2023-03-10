@@ -33,16 +33,19 @@ class LoginScreen extends StatelessWidget {
                     authState.position == 'manager' &&
                     position.toLowerCase() == 'manager') {
                   savePosition(authState.uid,position.toLowerCase());
+                  BlocProvider.of<UserCubit>(context).updateUserDeviceTokenUseCase(uId: authState.uid, field: 'deviceToken', value: authState.deviceToken);
                   return ManagerScreen(managerParameter: {'uid':authState.uid,'position': 'Manager', 'user': authState.user});
                 } else if (authState is Authenticated &&
                     authState.position == 'secretary' &&
                     position.toLowerCase() == 'secretary') {
                   savePosition(authState.uid,position.toLowerCase());
+                  BlocProvider.of<UserCubit>(context).updateUserDeviceTokenUseCase(uId: authState.uid, field: 'deviceToken', value: authState.deviceToken);
                   return SecretaryScreen(secretaryParameter: {'uid':authState.uid,'position': 'Secretary', 'user': authState.user});
                 } else if (authState is Authenticated &&
                     authState.position == 'representative' &&
                     position.toLowerCase() == 'representative') {
                   savePosition(authState.uid,position.toLowerCase());
+                  BlocProvider.of<UserCubit>(context).updateUserDeviceTokenUseCase(uId: authState.uid, field: 'deviceToken', value: authState.deviceToken);
                   return RepresentativeScreen(representativeParameter: {'uid':authState.uid,'position': 'Representative', 'user': authState.user});
                 } else {
                   clearPosition();

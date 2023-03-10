@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company/company/domain/entities/user_entity.dart';
 import 'package:company/company/presentation/components/components.dart';
+import 'package:company/company/presentation/controller/auth/auth_cubit.dart';
 import 'package:company/company/presentation/controller/user/user_cubit.dart';
 import 'package:company/core/utils/app_icons.dart';
 import 'package:company/core/utils/app_router.dart';
@@ -8,6 +9,7 @@ import 'package:company/core/utils/background_empty.dart';
 import 'package:company/core/utils/colors.dart';
 import 'package:company/core/utils/app_constants.dart';
 import 'package:company/core/utils/styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -135,13 +137,13 @@ class _UsersListViewItem extends StatelessWidget {
                                 Expanded(
                                   child: defaultTextButton(
                                       function: () async {
-                                        // deleteUsers(userEntity: user);
-                                        BlocProvider.of<UserCubit>(context).deleteUser(user: user);
+                                        deleteUser(context: context,user: user);
+                                        //BlocProvider.of<UserCubit>(context).deleteUser(user: user);
                                         showToast(
                                             text:
                                                 'account removed successfully ',
                                             state: ToastStates.SUCCESS);
-                                        GoRouter.of(context).go(AppRouter.kManagerScreen, extra: modifyUserListParameters);
+                                        //GoRouter.of(context).go(AppRouter.kManagerScreen, extra: modifyUserListParameters);
                                       },
                                       text: 'Confirm'),
                                 ),
@@ -171,5 +173,10 @@ class _UsersListViewItem extends StatelessWidget {
       }
       return;
     });
+  }
+  Future deleteUser({required BuildContext context, required UserEntity user}) async {
+    FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signInWithEmailAndPassword(email: user.username!, password: user.password!);
+    print('user: ${FirebaseAuth.instance.currentUser}');
   }
 }

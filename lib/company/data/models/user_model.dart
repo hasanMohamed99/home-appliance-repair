@@ -8,6 +8,7 @@ class UserModel extends UserEntity {
     final String? password,
     final String? username,
     final String? position,
+    final String? deviceToken,
     final int? finishedOrders,
     final int? currentOrders,
   }): super(
@@ -16,6 +17,7 @@ class UserModel extends UserEntity {
     password: password,
     username: username,
     position: position,
+    deviceToken: deviceToken,
     finishedOrders: finishedOrders,
     currentOrders:currentOrders,
   );
@@ -27,6 +29,7 @@ class UserModel extends UserEntity {
       password: documentSnapshot.get('password'),
       username: documentSnapshot.get('username'),
       position: documentSnapshot.get('position'),
+      deviceToken: documentSnapshot.get('deviceToken'),
       finishedOrders: documentSnapshot.get('finishedOrders'),
       currentOrders: documentSnapshot.get('currentOrders'),
     );
@@ -39,6 +42,7 @@ class UserModel extends UserEntity {
       'password': password,
       'username':username,
       'position':position,
+      'deviceToken':deviceToken,
       'finishedOrders': finishedOrders,
       'currentOrders': currentOrders,
     };

@@ -13,7 +13,13 @@ class Authenticated extends AuthState {
   final String uid;
   final String position;
   final Map<String, dynamic> user;
-  const Authenticated({required this.uid, required this.position,required this.user});
+  final String deviceToken;
+  const Authenticated({
+    required this.uid,
+    required this.position,
+    required this.user,
+    required this.deviceToken,
+  });
   @override
   List<Object> get props => [];
 }

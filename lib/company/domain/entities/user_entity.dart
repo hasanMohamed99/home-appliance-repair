@@ -6,6 +6,7 @@ class UserEntity extends Equatable {
   final String? password;
   final String? username;
   final String? position;
+  final String? deviceToken;
   final int? finishedOrders;
   final int? currentOrders;
 
@@ -15,6 +16,7 @@ class UserEntity extends Equatable {
     this.password,
     this.username,
     this.position,
+    this.deviceToken,
     this.finishedOrders,
     this.currentOrders,
   });
@@ -26,6 +28,7 @@ class UserEntity extends Equatable {
         password,
         username,
         position,
+        deviceToken,
         finishedOrders,
         currentOrders,
       ];
