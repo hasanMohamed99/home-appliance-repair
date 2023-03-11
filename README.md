@@ -1,16 +1,17 @@
 # company
 
-A new Flutter project.
+Home Appliance Repair.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You can test the app by these accounts
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Manager
+    username: hasan09
+    password: 123456
+- Representative
+    username: amr09
+    password: 123456
+- Secretary
+    username: noor09
+    password: 123456
