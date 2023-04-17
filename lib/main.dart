@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    debugInvertOversizedImages = true;
     return ScreenUtilInit(
       designSize: const Size(412, 870),
       minTextAdapt: true,

@@ -1,4 +1,3 @@
-import 'package:company/company/domain/entities/order_entity.dart';
 import 'package:company/company/domain/repository/firebase_repository.dart';
 
 class UpdateUserOrderUseCase {

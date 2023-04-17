@@ -1,6 +1,5 @@
 import 'package:company/company/presentation/components/components.dart';
 import 'package:company/company/presentation/controller/auth/auth_cubit.dart';
-import 'package:company/company/presentation/controller/user/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

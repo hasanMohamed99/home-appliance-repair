@@ -44,53 +44,61 @@ class OrderListScreen extends StatelessWidget {
       body: BlocBuilder<OrderCubit, OrderState>(
         builder: (context, orderState) {
           if (orderState is OrderLoaded) {
-            if(orderListParameters['orderType'] == AppString.representativeScreenStrings['new_orders']){
+            if (orderListParameters['orderType'] ==
+                AppString.representativeScreenStrings['new_orders']) {
               orders.clear();
               for (var element in orderState.orders) {
-                if(element.orderStatus != AppString.orderScreenStrings['delivered']){
+                if (element.orderStatus !=
+                    AppString.orderScreenStrings['delivered']) {
                   orders.add(element);
                 }
               }
-            }
-            else if(orderListParameters['orderType'] == AppString.representativeScreenStrings['delivered_orders']){
+            } else if (orderListParameters['orderType'] ==
+                AppString.representativeScreenStrings['delivered_orders']) {
               orders.clear();
               for (var element in orderState.orders) {
-                if(element.orderStatus == AppString.orderScreenStrings['delivered']){
+                if (element.orderStatus ==
+                    AppString.orderScreenStrings['delivered']) {
                   orders.add(element);
                 }
               }
-            }
-            else if(orderListParameters['orderType'] == AppString.secretaryScreenStrings['modify_order']){
+            } else if (orderListParameters['orderType'] ==
+                AppString.secretaryScreenStrings['modify_order']) {
               orders.clear();
               for (var element in orderState.orders) {
-                if(element.orderStatus == AppString.orderScreenStrings['new']){
+                if (element.orderStatus ==
+                    AppString.orderScreenStrings['new']) {
                   orders.add(element);
                 }
               }
-            }
-            else if(orderListParameters['orderType'] == AppString.managerScreenStrings['new_orders']
-                && orderListParameters['position']== AppString.mainStrings['manager']){
+            } else if (orderListParameters['orderType'] ==
+                    AppString.managerScreenStrings['new_orders'] &&
+                orderListParameters['position'] ==
+                    AppString.mainStrings['manager']) {
               orders.clear();
               for (var element in orderState.orders) {
                 orders.add(element);
               }
-            }
-            else if(orderListParameters['orderType'] == AppString.managerScreenStrings['checkout_orders']
-                && orderListParameters['position']== AppString.mainStrings['manager']){
+            } else if (orderListParameters['orderType'] ==
+                    AppString.managerScreenStrings['checkout_orders'] &&
+                orderListParameters['position'] ==
+                    AppString.mainStrings['manager']) {
               orders.clear();
               for (var element in orderState.orders) {
                 orders.add(element);
               }
-            }
-            else if(orderListParameters['orderType'] == AppString.managerScreenStrings['delivered_orders']
-                && orderListParameters['position']== AppString.mainStrings['manager']){
+            } else if (orderListParameters['orderType'] ==
+                    AppString.managerScreenStrings['delivered_orders'] &&
+                orderListParameters['position'] ==
+                    AppString.mainStrings['manager']) {
               orders.clear();
               for (var element in orderState.orders) {
                 orders.add(element);
               }
-            }
-            else if(orderListParameters['orderType'] == AppString.managerScreenStrings['checked_orders']
-                && orderListParameters['position']== AppString.mainStrings['manager']){
+            } else if (orderListParameters['orderType'] ==
+                    AppString.managerScreenStrings['checked_orders'] &&
+                orderListParameters['position'] ==
+                    AppString.mainStrings['manager']) {
               orders.clear();
               for (var element in orderState.orders) {
                 orders.add(element);
@@ -116,24 +124,25 @@ class OrderListScreen extends StatelessWidget {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        if(orderListParameters['position'] == AppString.mainStrings['secretary']) {
+                        if (orderListParameters['position'] ==
+                            AppString.mainStrings['secretary']) {
                           return _OrderListViewItemSecretary(
                             orderListParameters: orderListParameters,
                             order: orders[index],
                           );
-                        } else if (orderListParameters['position'] == AppString.mainStrings['representative']){
+                        } else if (orderListParameters['position'] ==
+                            AppString.mainStrings['representative']) {
                           return _OrderListViewItemRepresentative(
                             orderListParameters: orderListParameters,
                             order: orders[index],
                           );
-                        }
-                        else if (orderListParameters['position'] == AppString.mainStrings['manager']){
+                        } else if (orderListParameters['position'] ==
+                            AppString.mainStrings['manager']) {
                           return _OrderListViewItemManager(
                             orderListParameters: orderListParameters,
                             order: orders[index],
                           );
-                        }
-                        else {
+                        } else {
                           return const CircularProgressIndicator();
                         }
                       },
@@ -164,7 +173,8 @@ class _OrderListViewItemSecretary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserCubit>(context).getNameById(uid: order.representativeId!);
+    BlocProvider.of<UserCubit>(context)
+        .getNameById(uid: order.representativeId!);
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, userState) {
         if (userState is UserLoaded) {
@@ -182,7 +192,8 @@ class _OrderListViewItemSecretary extends StatelessWidget {
                       'secretary': orderListParameters['secretary'],
                       'uid': orderListParameters['uid'],
                       'position': AppString.mainStrings['secretary'],
-                      'orderType': AppString.secretaryScreenStrings['modify_order'],
+                      'orderType':
+                          AppString.secretaryScreenStrings['modify_order'],
                       'order': order,
                     },
                   );
@@ -267,7 +278,8 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserCubit>(context).getNameById(uid:order.representativeId!);
+    BlocProvider.of<UserCubit>(context)
+        .getNameById(uid: order.representativeId!);
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, userState) {
         if (userState is UserLoaded) {
@@ -277,8 +289,8 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(kRadius.r)),
               elevation: 5,
               child: AbsorbPointer(
-                absorbing:
-                order.orderStatus == AppString.orderScreenStrings['delivered']
+                absorbing: order.orderStatus ==
+                        AppString.orderScreenStrings['delivered']
                     ? true
                     : false,
                 child: InkWell(
@@ -288,7 +300,8 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
                       extra: {
                         'uid': orderListParameters['uid'],
                         'position': AppString.mainStrings['representative'],
-                        'orderType': AppString.representativeScreenStrings['new_orders'],
+                        'orderType':
+                            AppString.representativeScreenStrings['new_orders'],
                         'order': order,
                         'repName': orderListParameters['repName'],
                         'representative': orderListParameters['representative'],
@@ -303,7 +316,7 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
                           width: 17.w,
                         ),
                         Image.asset(
-                          getDeviceIcon(deviceName:order.deviceName!),
+                          getDeviceIcon(deviceName: order.deviceName!),
                           width: 102.w,
                           height: 102.h,
                         ),
@@ -316,7 +329,7 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                               order.deviceName!,
+                                order.deviceName!,
                                 style: Styles.textStyleBold16(
                                   normalTextColor,
                                   context,
@@ -327,57 +340,71 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
                               SizedBox(
                                 height: 10.1.h,
                               ),
-                              if(order.orderStatus == AppString.orderScreenStrings['new'])
-                                Text(
-                               order.orderStatus!.toUpperCase(),
-                                style:Styles.textStyle14(Colors.red, context),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              if(order.orderStatus == AppString.orderScreenStrings['checked'])
+                              if (order.orderStatus ==
+                                  AppString.orderScreenStrings['new'])
                                 Text(
                                   order.orderStatus!.toUpperCase(),
-                                  style:Styles.textStyle14(Colors.amber, context),
+                                  style:
+                                      Styles.textStyle14(Colors.red, context),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              if(order.orderStatus == AppString.orderScreenStrings['fixed'] ||
-                                  order.orderStatus == AppString.orderScreenStrings['checkout'])
+                              if (order.orderStatus ==
+                                  AppString.orderScreenStrings['checked'])
                                 Text(
                                   order.orderStatus!.toUpperCase(),
-                                  style:Styles.textStyle14(Colors.green, context),
+                                  style:
+                                      Styles.textStyle14(Colors.amber, context),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              if(order.orderStatus == AppString.orderScreenStrings['not_fixed'])
+                              if (order.orderStatus ==
+                                      AppString.orderScreenStrings['fixed'] ||
+                                  order.orderStatus ==
+                                      AppString.orderScreenStrings['checkout'])
                                 Text(
                                   order.orderStatus!.toUpperCase(),
-                                  style:Styles.textStyle14(Colors.purple, context),
+                                  style:
+                                      Styles.textStyle14(Colors.green, context),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              if(order.orderStatus == AppString.orderScreenStrings['delivered'])
+                              if (order.orderStatus ==
+                                  AppString.orderScreenStrings['not_fixed'])
                                 Text(
                                   order.orderStatus!.toUpperCase(),
-                                  style:Styles.textStyle14(Colors.greenAccent, context),
+                                  style: Styles.textStyle14(
+                                      Colors.purple, context),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              if(order.orderStatus == AppString.orderScreenStrings['delivered'])
+                              if (order.orderStatus ==
+                                  AppString.orderScreenStrings['delivered'])
+                                Text(
+                                  order.orderStatus!.toUpperCase(),
+                                  style: Styles.textStyle14(
+                                      Colors.greenAccent, context),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              if (order.orderStatus ==
+                                  AppString.orderScreenStrings['delivered'])
                                 Text(
                                   'Price: ${order.price!} EGP',
-                                  style:Styles.textStyle14(Colors.black54, context),
+                                  style: Styles.textStyle14(
+                                      Colors.black54, context),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              if(order.orderStatus != AppString.orderScreenStrings['delivered'])
+                              if (order.orderStatus !=
+                                  AppString.orderScreenStrings['delivered'])
                                 SizedBox(
                                   height: 10.1.h,
                                 ),
                               Text(
-                               order.customerAddress!,
-                                style:
-                                Styles.textStyle14(normalTextColor, context),
+                                order.customerAddress!,
+                                style: Styles.textStyle14(
+                                    normalTextColor, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -413,7 +440,8 @@ class _OrderListViewItemManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserCubit>(context).getNameById(uid:order.representativeId!);
+    BlocProvider.of<UserCubit>(context)
+        .getNameById(uid: order.representativeId!);
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, userState) {
         if (userState is UserLoaded) {
@@ -430,7 +458,7 @@ class _OrderListViewItemManager extends StatelessWidget {
                       'manager': orderListParameters['manager'],
                       'position': AppString.mainStrings['manager'],
                       'orderType': AppString.managerScreenStrings['new_orders'],
-                      'order':order,
+                      'order': order,
                     },
                   );
                 },
@@ -441,10 +469,12 @@ class _OrderListViewItemManager extends StatelessWidget {
                       SizedBox(
                         width: 17.w,
                       ),
-                      Image.asset(
-                        getDeviceIcon(deviceName:order.deviceName!),
-                        width: 102.w,
-                        height: 102.h,
+                      Image(
+                        image: ResizeImage(
+                          AssetImage(getDeviceIcon(deviceName: order.deviceName!)),
+                          width: 102.w.toInt(),
+                          height: 102.h.toInt(),
+                        ),
                       ),
                       SizedBox(
                         width: 30.w,
@@ -466,53 +496,65 @@ class _OrderListViewItemManager extends StatelessWidget {
                             SizedBox(
                               height: 10.1.h,
                             ),
-                            if(order.orderStatus == AppString.orderScreenStrings['new'])
+                            if (order.orderStatus ==
+                                AppString.orderScreenStrings['new'])
                               Text(
                                 order.orderStatus!.toUpperCase(),
-                                style:Styles.textStyle14(Colors.red, context),
+                                style: Styles.textStyle14(Colors.red, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            if(order.orderStatus == AppString.orderScreenStrings['checked'])
+                            if (order.orderStatus ==
+                                AppString.orderScreenStrings['checked'])
                               Text(
                                 order.orderStatus!.toUpperCase(),
-                                style:Styles.textStyle14(Colors.amber, context),
+                                style:
+                                    Styles.textStyle14(Colors.amber, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            if(order.orderStatus == AppString.orderScreenStrings['fixed'] ||
-                                order.orderStatus == AppString.orderScreenStrings['checkout'])
+                            if (order.orderStatus ==
+                                    AppString.orderScreenStrings['fixed'] ||
+                                order.orderStatus ==
+                                    AppString.orderScreenStrings['checkout'])
                               Text(
                                 order.orderStatus!.toUpperCase(),
-                                style:Styles.textStyle14(Colors.green, context),
+                                style:
+                                    Styles.textStyle14(Colors.green, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            if(order.orderStatus == AppString.orderScreenStrings['not_fixed'])
+                            if (order.orderStatus ==
+                                AppString.orderScreenStrings['not_fixed'])
                               Text(
                                 order.orderStatus!.toUpperCase(),
-                                style:Styles.textStyle14(Colors.purple, context),
+                                style:
+                                    Styles.textStyle14(Colors.purple, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            if(order.orderStatus == AppString.orderScreenStrings['delivered'])
+                            if (order.orderStatus ==
+                                AppString.orderScreenStrings['delivered'])
                               Text(
-                                '${order.orderStatus!.toUpperCase()} ${order.orderFixedOrNotFixedStatus??''}',
-                                style:Styles.textStyle14(Colors.greenAccent, context),
+                                '${order.orderStatus!.toUpperCase()} ${order.orderFixedOrNotFixedStatus ?? ''}',
+                                style: Styles.textStyle14(
+                                    Colors.greenAccent, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            if(order.orderStatus == AppString.orderScreenStrings['delivered'])
+                            if (order.orderStatus ==
+                                AppString.orderScreenStrings['delivered'])
                               Text(
                                 'Price: ${order.price} EGP',
-                                style:Styles.textStyle14(Colors.black54, context),
+                                style:
+                                    Styles.textStyle14(Colors.black54, context),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             Text(
                               order.customerAddress!,
                               style:
-                              Styles.textStyle14(normalTextColor, context),
+                                  Styles.textStyle14(normalTextColor, context),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
