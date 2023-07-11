@@ -205,10 +205,12 @@ class _OrderListViewItemSecretary extends StatelessWidget {
                       SizedBox(
                         width: 17.w,
                       ),
-                      Image.asset(
-                        getDeviceIcon(deviceName: order.deviceName!),
-                        width: 102.w,
-                        height: 102.h,
+                      Image(
+                        image: ResizeImage(
+                          AssetImage(getDeviceIcon(deviceName: order.deviceName!)),
+                          width: 102.w.toInt(),
+                          height: 102.h.toInt(),
+                        ),
                       ),
                       SizedBox(
                         width: 30.w,
@@ -315,10 +317,12 @@ class _OrderListViewItemRepresentative extends StatelessWidget {
                         SizedBox(
                           width: 17.w,
                         ),
-                        Image.asset(
-                          getDeviceIcon(deviceName: order.deviceName!),
-                          width: 102.w,
-                          height: 102.h,
+                        Image(
+                          image: ResizeImage(
+                            AssetImage(getDeviceIcon(deviceName: order.deviceName!)),
+                            width: 102.w.toInt(),
+                            height: 102.h.toInt(),
+                          ),
                         ),
                         SizedBox(
                           width: 30.w,

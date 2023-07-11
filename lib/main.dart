@@ -15,7 +15,7 @@ import 'core/services/services_locator.dart' as service;
 
 void requestPermission() async{
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await messaging.requestPermission(
+  await messaging.requestPermission(
     alert: true,
     announcement: false,
     badge: true,

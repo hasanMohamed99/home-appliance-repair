@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:company/company/domain/entities/user_entity.dart';
 import 'package:company/company/presentation/components/components.dart';
 import 'package:company/company/presentation/controller/user/user_cubit.dart';
 import 'package:company/core/utils/app_icons.dart';
@@ -8,6 +9,7 @@ import 'package:company/core/utils/background_top.dart';
 import 'package:company/core/utils/colors.dart';
 import 'package:company/core/utils/app_constants.dart';
 import 'package:company/core/utils/styles.dart';
+import 'package:firebase_admin/firebase_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -197,13 +199,27 @@ class ManagerAddUserScreenBody extends StatelessWidget {
       CustomCard(
         title: AppString.managerScreenStrings['delete_account']!,
         icon: AppIcon.modifyAccountIcon,
-        function: () {
-          // BlocProvider.of<UserCubit>(context).getUsers();
-          // GoRouter.of(context).push(AppRouter.kModifyUserListViewScreen,
-          //     extra: {
-          //       'position': AppString.mainStrings['manager'],
-          //       'screenType': AppString.managerScreenStrings['delete_account'],
-          //     });
+        function: () async{
+          var credential = Credentials.applicationDefault();
+          credential ??= await Credentials.login();
+          var projectId = 'company-app-f5f9a';
+          // create an app
+          var app = FirebaseAdmin.instance.initializeApp(AppOptions(
+              credential: credential,
+              projectId: projectId,
+              storageBucket: '$projectId.appspot.com'));
+
+          try {
+            // get a user by email
+            var v = await app.auth().getUser('GOHmhoIxdPWMg4jmgbjbHDfBlGZ2');
+            print(v.toJson());
+          } on FirebaseException catch (e) {
+            print(e.message);
+          }
+
+          await for (var v in app.storage().bucket().list()) {
+            print(v.name);
+          }
         },
       ),
     ];
