@@ -29,29 +29,25 @@ dependencies:
   timeline_tile:
   http:
 
-
   #fireBase
   firebase_auth:
   cloud_firestore:
   firebase_storage:
   firebase_core:
   firebase_messaging:
-  firebase_admin: ^0.2.0
-
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
-  flutter_native_splash:
+  flutter_native_splash: ^2.3.1
 
 flutter_native_splash:
-  android: true
-  ios: true
-  color: "#6891F9"
+  color: "#ffffff"
+  image: assets/images/logo.png
+  forceDarkAllowed: false
   fullscreen: true
+  web: false
 
 flutter:
 

@@ -4,7 +4,6 @@ import 'package:company/company/data/models/order_model.dart';
 import 'package:company/company/data/models/user_model.dart';
 import 'package:company/company/domain/entities/order_entity.dart';
 import 'package:company/company/domain/entities/user_entity.dart';
-import 'package:firebase_admin/firebase_admin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -66,15 +65,6 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
 
   @override
   Future<void> deleteUser(UserEntity userEntity) async {
-    var credential = Credentials.applicationDefault();
-
-    final app = FirebaseAdmin.instance.initializeApp(
-      AppOptions(
-        credential: credential!,
-        projectId: 'company-app-f5f9a',
-      ),
-    );
-    app.auth().deleteUser('GOHmhoIxdPWMg4jmgbjbHDfBlGZ2');
     final orderCollectionRef = FirebaseFirestore.instance.collection('users');
     orderCollectionRef.doc(userEntity.uId).get().then((user) {
       if (user.exists) {
