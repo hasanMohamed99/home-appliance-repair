@@ -1,4 +1,4 @@
-# company
+# Home-appliance-repair
 
 A home-appliance-repair app is a mobile application designed to help the manger to follow up process of the household appliances from getting it from the customer until deliver it again.
 
